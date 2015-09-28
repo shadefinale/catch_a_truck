@@ -13,9 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20150928173630) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "food_trucks", force: :cascade do |t|
     t.string   "name",       null: false
-    t.string   "address"
+    t.string   "address",    null: false
     t.string   "food_items", null: false
     t.float    "latitude",   null: false
     t.float    "longitude",  null: false
@@ -23,8 +26,8 @@ ActiveRecord::Schema.define(version: 20150928173630) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "food_trucks", ["food_items"], name: "index_food_trucks_on_food_items"
-  add_index "food_trucks", ["latitude", "longitude"], name: "index_food_trucks_on_latitude_and_longitude"
-  add_index "food_trucks", ["name"], name: "index_food_trucks_on_name"
+  add_index "food_trucks", ["food_items"], name: "index_food_trucks_on_food_items", using: :btree
+  add_index "food_trucks", ["latitude", "longitude"], name: "index_food_trucks_on_latitude_and_longitude", using: :btree
+  add_index "food_trucks", ["name"], name: "index_food_trucks_on_name", using: :btree
 
 end

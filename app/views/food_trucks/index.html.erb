@@ -1,0 +1,29 @@
+<h3>Oh no! Looks like there's something wrong loading our webpage</h3>
+<p>This usually happens if Javascript disabled on your computer. For now, we'll give you results without it.</p>
+<p>You're missing out on our map and faster filtering without Javascript.</p>
+
+<noscript>
+    You must have JavaScript enabled to view this map.
+</noscript>
+
+<h4>Foodtrucks</h4>
+
+The Big List of Food Trucks in San Francisco
+<p><%= @foodtrucks.length %> Food Trucks </p>
+<table class='table table-striped'>
+  <tr>
+    <th>Name</th>
+    <th>Food Items</th>
+    <th>Address</th>
+  </tr>
+
+    <!-- if/else statement below for testing purposes -->
+    <% if @foodtrucks.class == Array %>
+      <% @foodtrucks.each do |truck| %>
+        <%= render partial: 'food_truck', locals: {food_truck: truck} %>
+      <% end %>
+    <% else %>
+      <%= render @foodtrucks %>
+    <% end %>
+
+</table>
