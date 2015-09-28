@@ -1,10 +1,10 @@
 class FoodTruck < ActiveRecord::Base
 
-  geocoded_by :address
-  after_validation :geocode
+  # geocoded_by :address
+  # after_validation :geocode
 
-  def self.nearby_trucks(origin, miles = 1)
-    FoodTruck.near(origin, miles)
+  def self.nearby_trucks(origin)
+    FoodTruck.near(origin, 1) #within 1 mile
   end
 
   #get all food trucks (seeded data)

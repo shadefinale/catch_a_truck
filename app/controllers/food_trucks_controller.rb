@@ -2,10 +2,9 @@ class FoodTrucksController < ApplicationController
 
   def index
     params[:address] = '886 BRANNAN ST, San Francisco'
-    params[:miles] = 1
     if params[:address]
       @origin = Map.coordinates(params[:address])
-      @foodtrucks = FoodTruck.nearby_trucks(@origin, params[:miles])
+      @foodtrucks = FoodTruck.nearby_trucks(@origin)
     else
       @foodtrucks = FoodTruck.all
     end
