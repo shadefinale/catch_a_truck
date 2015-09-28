@@ -4,15 +4,7 @@ class FoodTruck < ActiveRecord::Base
   after_validation :geocode
 
   def self.nearby_trucks(origin, miles = 1)
-    if origin # latitude and longitude array
-      # mile to meters conversion for API
-      meters = miles * 1609.34
-
-      query_string = '$where=within_circle(location,'
-      query_string += origin[0].to_s + ',' + origin[1].to_s
-      query_string += ',' + meters.to_s + ')'
-    end
-    return FoodTruck.get_foodtrucks(query_string)
+    FoodTruck.near(origin, miles)
   end
 
   #get all food trucks (seeded data)
