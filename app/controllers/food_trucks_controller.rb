@@ -1,14 +1,14 @@
 class FoodTrucksController < ApplicationController
 
   def index
-    params[:address] = '886 BRANNAN ST, San Francisco'
+    # params[:address] = '886 BRANNAN ST, San Francisco'
     if params[:address]
       @origin = Map.coordinates(params[:address])
-      @foodtrucks = FoodTruck.nearby_trucks(@origin)
+      # @foodtrucks = FoodTruck.nearby_trucks(@origin)
+      @foodtrucks = FoodTruck.nearby_trucks_by_API(@origin)
     else
       @foodtrucks = FoodTruck.all
     end
-
     respond_to do |format|
       format.json {render @foodtrucks}
       format.html

@@ -17,6 +17,13 @@ The Big List of Food Trucks in San Francisco
     <th>Address</th>
   </tr>
 
-    <%= render @foodtrucks %>
+    <!-- if/else statement below for testing purposes -->
+    <% if @foodtrucks.class == Array %>
+      <% @foodtrucks.each do |truck| %>
+        <%= render partial: 'food_truck', locals: {food_truck: truck} %>
+      <% end %>
+    <% else %>
+      <%= render @foodtrucks %>
+    <% end %>
 
 </table>
