@@ -11,4 +11,5 @@ FoodTruck.destroy_all
 trucks = FoodTruck.get_foodtrucks
 
 #add foodtrucks to DB
+FoodTruck.add_foodtrucks_to_DB(trucks)
 

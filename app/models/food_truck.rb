@@ -1,21 +1,30 @@
 class FoodTruck < ActiveRecord::Base
 
-  def self.nearby_trucks(origin)
-    self.get_foodtrucks()
+  geocoded_by :address
+  after_validation :geocode
+
+  def self.nearby_trucks(origin, miles = 1)
+    if origin # latitude and longitude array
+      # mile to meters conversion for API
+      meters = miles * 1609.34
+
+      query_string = '$where=within_circle(location,'
+      query_string += origin[0].to_s + ',' + origin[1].to_s
+      query_string += ',' + meters.to_s + ')'
+    end
+    return FoodTruck.get_foodtrucks(query_string)
   end
 
   #get all food trucks (seeded data)
-  def self.get_foodtrucks
+  def self.get_foodtrucks(params = "")
     api_url_base = "https://data.sfgov.org/resource/rqzj-sfat.json"
-
-    truck_list_url = api_url_base + '?status=approved'
+    truck_list_url = api_url_base + '?status=approved' + params
     headers = { "X-App-Token" =>
                     Rails.application.secrets.SF_API_Token }
     response_info = HTTParty.get(truck_list_url, headers)
 
     if response_info.code == 200
-      list = response_info.parsed_response # array
-      FoodTruck.add_foodtrucks_to_DB(list)
+      return response_info.parsed_response # array
     else
       #error handling for API here
     end
@@ -24,14 +33,13 @@ class FoodTruck < ActiveRecord::Base
   def self.add_foodtrucks_to_DB(list)
     list.each do |truck|
       if truck['latitude'] && truck['longitude']
-        FoodTruck.create( latitude:   truck['latitude'],
-                          longitude:  truck['longitude'],
-                          name:       truck['applicant'],
-                          address:    truck['address'],
+        FoodTruck.create( latitude: truck['latitude'],
+                         longitude: truck['longitude'],
+                              name: truck['applicant'],
+                           address: truck['address'] +', San Francisco',
                           food_items: truck['fooditems'] )
       end
     end
   end
-
 
 end
