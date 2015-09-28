@@ -48,7 +48,8 @@ class FoodTruck < ActiveRecord::Base
                          longitude: truck['longitude'],
                               name: truck['applicant'],
                            address: truck['address'] +', San Francisco',
-                          food_items: truck['fooditems']} )
+                          # schedule: truck['dayshours'],
+                        food_items: truck['fooditems']} )
       end
     end
     return foodtrucks
