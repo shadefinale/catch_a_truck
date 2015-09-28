@@ -1,0 +1,21 @@
+<h3>Oh no! Looks like there's something wrong loading our webpage</h3>
+<p>This usually happens if Javascript disabled on your computer. For now, we'll give you results without it.</p>
+<p>You're missing out on our map and faster filtering without Javascript.</p>
+
+<noscript>
+    You must have JavaScript enabled to view this map.
+</noscript>
+
+<h4>Foodtrucks</h4>
+
+The Big List of Food Trucks in San Francisco
+<table class='table table-striped'>
+  <tr>
+    <th>Name</th>
+    <th>Food Items</th>
+    <th>Address</th>
+  </tr>
+
+    <%= render @foodtrucks %>
+
+</table>
