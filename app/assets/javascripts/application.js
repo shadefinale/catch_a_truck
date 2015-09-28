@@ -17,5 +17,6 @@
 //= require angular
 //= require angular-google-maps
 //= require angular-simple-logger
+//= require ui-router
 //= require turbolinks
 //= require_tree .
