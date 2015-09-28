@@ -31,7 +31,6 @@ class FoodTruck < ActiveRecord::Base
     headers = { "X-App-Token" =>
                     Rails.application.secrets.SF_API_Token }
     response_info = HTTParty.get(truck_list_url, headers)
-
     if response_info.code == 200
       list = response_info.parsed_response
       return FoodTruck.process_foodtruck_list(list) # array
@@ -58,12 +57,8 @@ class FoodTruck < ActiveRecord::Base
 
   def self.add_foodtrucks_to_DB(processed_list)
     processed_list.each do |truck|
-      if truck['latitude'] && truck['longitude']
-        FoodTruck.create( latitude: truck['latitude'],
-                         longitude: truck['longitude'],
-                              name: truck['applicant'],
-                           address: truck['address'] +', San Francisco',
-                          food_items: truck['fooditems'] )
+      if truck[:latitude] && truck[:longitude]
+        FoodTruck.create(truck)
       end
     end
   end
