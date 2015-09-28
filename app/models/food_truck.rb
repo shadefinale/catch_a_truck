@@ -13,7 +13,6 @@ class FoodTruck < ActiveRecord::Base
 
   def self.nearby_trucks_by_API(origin)
     if origin # latitude and longitude array
-      origin = [37.7697, -122.4769] #golden gate park coords
       # 1 mile to 1609.34 meters conversion for API
       meters = 1609.34
       query_string = '&$where=within_circle(location,'
@@ -55,6 +54,7 @@ class FoodTruck < ActiveRecord::Base
     return foodtrucks
   end
 
+  #to save into database
   def self.add_foodtrucks_to_DB(processed_list)
     processed_list.each do |truck|
       if truck[:latitude] && truck[:longitude]
