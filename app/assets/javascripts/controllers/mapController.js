@@ -1,26 +1,42 @@
 app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($scope, $stateParams, Restangular){
 
-  Restangular.one("food_trucks").get({'address': $stateParams.query}).then(function(success){
-    console.log(success);
-    $scope.map.markers = JSON.parse(success.markers);
-    // debugger;
-    $scope.mapCenter.latitude = success.center.latitude;
-    $scope.mapCenter.longitude = success.center.longitude;
-    $scope.status.text = "";
-  }, function(error){
-    console.log(error);
-    $scope.status.text = "Oops! There was an error. Try Again?";
-  });
+  var errorMsg = "No Nearby Carts Open Today";
+
+  //requesting info from backend
+  var getCarts = function(query){
+    Restangular.one("food_trucks").get({'address': query}).then(function(success){
+      $scope.map.markers = JSON.parse(success.markers);
+      console.log($scope.map.markers);
+      $scope.mapCenter.latitude = success.center.latitude;
+      $scope.mapCenter.longitude = success.center.longitude;
+      updateStatusText();
+    }, function(error){
+      console.log(error);
+      $scope.status.text = "Oops! There was an error. Try Again?";
+    });
+  };
+
+  var updateStatusText = function(){
+    if ($scope.map.markers.length == 0){
+      $scope.status.text = errorMsg;
+    } else {
+      var cartNum = $scope.map.markers.length;
+      $scope.status.text = cartNum + " Carts Nearby";
+    }
+  };
+
+  //initial page load
+  getCarts($stateParams.query);
 
   $scope.status = {text : "Loading..."};
 
   //required hardcoding for map to load unless Restangular in resolve
-  $scope.mapCenter = { latitude: 37.7833, longitude: -122.4167};
+  $scope.mapCenter = {id: 0, latitude: 37.7833, longitude: -122.4167};
 
   $scope.map = {
-    center: { latitude: 37.7833, longitude: -122.4167},
-    zoom: 13,
-    markers: [{ latitude: 37.7833, longitude: -122.4167}],
+    center: $scope.mapCenter,
+    zoom: 15,
+    markers: [$scope.mapCenter],
     markersEvents: {
       click: function(marker, eventName, model, arguments) {
         console.log(marker, eventName, model, arguments);
@@ -38,5 +54,9 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
     }
   };
 
+  $scope.newQuery = function(){
+    $scope.status.text = "Loading...";
+    getCarts($scope.query);
+  };
 
 }]);
