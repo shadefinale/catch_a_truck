@@ -31,4 +31,19 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <h4>Not where you're looking for? Search again:</h4>
+
+    <div class="input-group">
+      <input placeholder="Input a location!" type="text" class="form-control" ng-model="query"/>
+      <span class="input-group-btn">
+        <button ui-sref="map({'query': query})" class="btn btn-primary">Go!</button>
+      </span>
+    </div>
+<!--     <div ui-view="search">
+    </div> -->
+  </div>
+</div>
+
 
