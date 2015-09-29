@@ -28,15 +28,7 @@ var app = angular.module("app", ["ui.router", 'uiGmapgoogle-maps', 'restangular'
       .state('map', {
         url: "/map/:query",
         templateUrl: 'templates/map.html',
-        controller: 'MapCtrl',
-        //Resolve takes too long: timeout and no data loaded
-        resolve: {
-          'mapData': ['Restangular', '$stateParams',
-            function(Restangular, $stateParams){
-              return Restangular.one("food_trucks").get(
-                            {'address': $stateParams.query}).then(console.log(success));
-          }]
-        }
+        controller: 'MapCtrl'
       })
   }
 ])

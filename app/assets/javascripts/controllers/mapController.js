@@ -1,13 +1,7 @@
-app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", 'mapData', function($scope, $stateParams, Restangular, mapData){
-
-  debugger
-  if(mapData.error) $scope.status.text = "Oops! There seems to be an error. Please try again.";
-  $scope.map.markers = JSON.parse(mapData.markers);
-  $scope.mapCenter = mapData.center;
-  // $scope.mapCenter.longitude = mapData.center.longitude;
+app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($scope, $stateParams, Restangular){
 
   //required hardcoding for map to load unless Restangular in resolve
-  // $scope.mapCenter = { latitude: 37.7833, longitude: -122.4167};
+  $scope.mapCenter = { latitude: 37.7833, longitude: -122.4167};
 
   $scope.map = {
     center: $scope.mapCenter,
@@ -31,5 +25,17 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", 'mapData', f
   };
 
   $scope.status = {text : "Loading..."};
+
+  Restangular.one("food_trucks").get({'address': $stateParams.query}).then(function(success){
+    // debugger;
+    console.log(success);
+    $scope.map.markers = JSON.parse(success.markers);
+    $scope.mapCenter.latitude = success.center.latitude;
+    $scope.mapCenter.longitude = success.center.longitude;
+    $scope.status.text = "";
+  }, function(error){
+    console.log(error);
+    $scope.status.text = "Oops! There was an error. Try Again?";
+  });
 
 }]);
