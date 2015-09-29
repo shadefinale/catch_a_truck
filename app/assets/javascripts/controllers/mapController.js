@@ -51,7 +51,7 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       closeClick: function() {
           this.show = false;
       },
-      options: {} // define when map is ready
+      options: {icon: 'data/truckicon.png'} // define when map is ready
     }
   };
 
