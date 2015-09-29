@@ -6,11 +6,12 @@ class FoodTruck < ActiveRecord::Base
   after_validation :geocode, if: ->(obj){
               !(obj.latitude.present? && obj.longitude.present?) }
 
-  #uses Database information
+  #uses Database information and method included in geocoder gem
   def self.nearby_trucks(origin)
     FoodTruck.near(origin, 1) #within 1 mile
   end
 
+  #create query string for API request
   def self.nearby_trucks_by_API(origin)
     if origin # latitude and longitude array
       # 1 mile to 1609.34 meters conversion for API
@@ -30,25 +31,26 @@ class FoodTruck < ActiveRecord::Base
     headers = { "X-App-Token" =>
                     Rails.application.secrets.SF_API_Token }
     response_info = HTTParty.get(truck_list_url, headers)
+
     if response_info.code == 200
       list = response_info.parsed_response
       return FoodTruck.process_foodtruck_list(list) # array
-
     else
-      FoodTruck.nearby_trucks(origin) #use seeded data if API fails
+      #use seeded data if API fails
+      return FoodTruck.nearby_trucks(origin)
     end
-
   end
 
+  #process foodtruck information into usable format for front end
   def self.process_foodtruck_list(list)
     foodtrucks = []
     list.each do |truck|
       if truck['latitude'] && truck['longitude']
         foodtrucks.push({latitude: truck['latitude'],
-                         longitude: truck['longitude'],
-                              name: truck['applicant'],
-                           address: truck['address'] +', San Francisco',
-                          # schedule: truck['dayshours'],
+                        longitude: truck['longitude'],
+                        name: truck['applicant'],
+                        address: truck['address'] +', San Francisco',
+                        # schedule: truck['dayshours'],
                         food_items: truck['fooditems']} )
       end
     end
