@@ -10,6 +10,9 @@ class FoodTrucksController < ApplicationController
       @origin ||= [37.7697, -122.4769]
       @foodtrucks = FoodTruck.all
     end
+
+    @foodtrucks.select! {|truck| truck.open? (Time.now.to_s) }
+
     respond_to do |format|
       format.json {render json: {markers: @foodtrucks.to_json, center: {latitude: @origin[0], longitude: @origin[1]} }}
       format.html

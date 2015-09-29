@@ -50,10 +50,11 @@ class FoodTruck < ActiveRecord::Base
                         longitude: truck['longitude'],
                         name: truck['applicant'],
                         address: truck['address'] +', San Francisco',
-                        # schedule: truck['dayshours'],
+                        schedule: truck['dayshours'] || "",
                         food_items: truck['fooditems']} )
       end
     end
+    p foodtrucks
     return foodtrucks
   end
 
@@ -64,6 +65,31 @@ class FoodTruck < ActiveRecord::Base
         FoodTruck.create(truck)
       end
     end
+  end
+
+  def open? (date)
+
+    range_regex = /.+-.+:/
+    cherry_regex = /([^:]+):/
+    day_of_week = Time.parse(date).strftime("%A").downcase[0..1]
+    if self.schedule =~ range_regex
+      day_range = self.schedule.scan(range_regex)[0]
+      return open_date_range?(day_of_week, day_range)
+    else
+      days = self.schedule.scan(cherry_regex)[0][0].split("/")
+      return open_date_cherry_picked?(day_of_week, days)
+    end
+  end
+
+  def open_date_range?(day_of_week, day_range)
+    weekdays = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa', 'su', 'mo', 'tu', 'we', 'th', 'fr', 'sa']
+    start_day = day_range[0..1].downcase
+    end_day = day_range[3..4].downcase
+    return weekdays[weekdays.index(start_day)..weekdays.index(end_day)].include? day_of_week
+  end
+
+  def open_date_cherry_picked?(day_of_week, day_range)
+    return day_range.map(&:downcase).include? day_of_week
   end
 
 end
