@@ -1,6 +1,12 @@
 // Place all the styles related to the static controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+html, body{
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow-y: hidden
+}
 
 .my-container-fluid{
   margin-right: auto;
@@ -8,6 +14,7 @@
   padding-left: 15px;
   padding-right: 15px;
   width:95%;
+  height:100%;
 }
 
 .vertical-center {
@@ -18,10 +25,15 @@
   align-items: center;
 }
 
-.angular-google-map-container { height: 70vh; }
+.base-page {
+  margin-top:20%;
+}
+
+.angular-google-map-container { height: 100%; }
 
 .angular-google-map {
   color: black;
+  height: 100%;
 }
 
 body {
@@ -33,10 +45,31 @@ body {
   color: #DDD;
 }
 
+#above-map{
+  max-height: 10%;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+#below-map{
+  max-height: 10%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.spacer {
+  height: 5%;
+}
+
+#map-container{
+  height: 70%;
+}
+
 #map-display{
   border: 3px solid black;
   position: relative;
   display: block;
+  height: 100%;
 }
 
 #overlay-text{
