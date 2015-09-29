@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928173630) do
+ActiveRecord::Schema.define(version: 20150929155554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150928173630) do
     t.float    "longitude",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "schedule",   null: false
   end
 
   add_index "food_trucks", ["food_items"], name: "index_food_trucks_on_food_items", using: :btree
