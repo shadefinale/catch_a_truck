@@ -7,7 +7,7 @@ class FoodTrucksController < ApplicationController
       #@origin = [37.7697, -122.4769] #golden gate park coords
       @foodtrucks = FoodTruck.nearby_trucks_by_API(@origin)
     else
-      @origin ||= [37.7697, -122.4769]
+      @origin ||= [37.7833, -122.4167]
       @foodtrucks = FoodTruck.all.as_json
     end
 

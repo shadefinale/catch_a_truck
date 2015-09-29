@@ -9,6 +9,7 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       console.log($scope.map.markers);
       $scope.mapCenter.latitude = success.center.latitude;
       $scope.mapCenter.longitude = success.center.longitude;
+      $scope.map.zoom = query ? 15 : 13;
       updateStatusText();
     }, function(error){
       console.log(error);
@@ -25,6 +26,12 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
     }
   };
 
+  var watchMapCenter = function(){
+    $scope.$watch($scope.map.dragging, function(newCtr, oldCtr){
+      console.log('center changed:', oldCtr, newCtr)
+    } );
+  };
+
   //initial page load
   getCarts($stateParams.query);
 
@@ -35,7 +42,7 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
 
   $scope.map = {
     center: $scope.mapCenter,
-    zoom: 15,
+    zoom: 13,
     markers: [$scope.mapCenter],
     markersEvents: {
       click: function(marker, eventName, model, arguments) {
@@ -50,10 +57,10 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       closeClick: function() {
           this.show = false;
       },
-      options: {} // define when map is ready
+      options: {}
     }
-  };
 
+  };
   $scope.newQuery = function(){
     $scope.status.text = "Loading...";
     getCarts($scope.query);

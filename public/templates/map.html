@@ -24,7 +24,7 @@
           <div>
             {{ map.window.model.name }}<br>
             {{ map.window.model.food_items }}<br>
-            <!-- add schedule here when available from API -->
+            {{ map.window.model.schedule }}
           </div>
       </ui-gmap-window>
 
@@ -43,8 +43,6 @@
         <button ng-click="newQuery()" class="btn btn-primary">Go!</button>
       </span>
     </div>
-<!--     <div ui-view="search">
-    </div> -->
   </div>
 </div>
 
