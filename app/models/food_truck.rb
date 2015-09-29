@@ -44,9 +44,9 @@ class FoodTruck < ActiveRecord::Base
   #process foodtruck information into usable format for front end
   def self.process_foodtruck_list(list)
     foodtrucks = []
-    list.each do |truck|
+    list.each_with_index do |truck, index|
       if truck['latitude'] && truck['longitude']
-        foodtrucks.push({latitude: truck['latitude'],
+        foodtrucks.push({id: index, latitude: truck['latitude'],
                         longitude: truck['longitude'],
                         name: truck['applicant'],
                         address: truck['address'] +', San Francisco',
