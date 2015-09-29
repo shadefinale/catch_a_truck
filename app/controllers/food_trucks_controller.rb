@@ -11,7 +11,7 @@ class FoodTrucksController < ApplicationController
     end
     respond_to do |format|
       format.json {render json: @foodtrucks}
-      format.html
+      format.html #for testing backend purposes
     end
   end
 
