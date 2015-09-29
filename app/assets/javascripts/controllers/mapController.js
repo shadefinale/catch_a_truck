@@ -32,7 +32,6 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
     } );
   };
 
-
   //initial page load
   getCarts($stateParams.query);
 
@@ -60,8 +59,8 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       },
       options: {}
     }
-  };
 
+  };
   $scope.newQuery = function(){
     $scope.status.text = "Loading...";
     getCarts($scope.query);
