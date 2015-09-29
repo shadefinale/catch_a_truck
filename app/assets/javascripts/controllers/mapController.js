@@ -1,12 +1,14 @@
 app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($scope, $stateParams, Restangular){
 
+  var errorMsg = "No Nearby Carts Found";
+
   Restangular.one("food_trucks").get({'address': $stateParams.query}).then(function(success){
     console.log(success);
+
     $scope.map.markers = JSON.parse(success.markers);
-    // debugger;
     $scope.mapCenter.latitude = success.center.latitude;
     $scope.mapCenter.longitude = success.center.longitude;
-    $scope.status.text = "";
+    $scope.status.text = $scope.map.markers.length == 0 ? errorMsg : "";
   }, function(error){
     console.log(error);
     $scope.status.text = "Oops! There was an error. Try Again?";
@@ -15,12 +17,12 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
   $scope.status = {text : "Loading..."};
 
   //required hardcoding for map to load unless Restangular in resolve
-  $scope.mapCenter = { latitude: 37.7833, longitude: -122.4167};
+  $scope.mapCenter = { id: 0, latitude: 37.7833, longitude: -122.4167};
 
   $scope.map = {
-    center: { latitude: 37.7833, longitude: -122.4167},
-    zoom: 13,
-    markers: [{ latitude: 37.7833, longitude: -122.4167}],
+    center: $scope.mapCenter,
+    zoom: 15,
+    markers: [$scope.mapCenter],
     markersEvents: {
       click: function(marker, eventName, model, arguments) {
         console.log(marker, eventName, model, arguments);

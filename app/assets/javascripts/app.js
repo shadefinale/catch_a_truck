@@ -17,7 +17,7 @@ var app = angular.module("app", ["ui.router", 'uiGmapgoogle-maps', 'restangular'
 
 .config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider){
-    $urlRouterProvider.otherwise('/')
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
       .state('base', {
@@ -30,4 +30,4 @@ var app = angular.module("app", ["ui.router", 'uiGmapgoogle-maps', 'restangular'
         controller: 'MapCtrl'
       })
   }
-])
+]);
