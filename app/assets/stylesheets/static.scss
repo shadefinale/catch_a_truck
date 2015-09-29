@@ -47,14 +47,14 @@ body {
 
 #above-map{
   max-height: 10%;
-  padding-top:10px;
-  padding-bottom:10px;
+  margin-top:10px;
+  margin-bottom:20px;
 }
 
 #below-map{
   max-height: 10%;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .spacer {
@@ -64,6 +64,14 @@ body {
 #map-container{
   height: 70%;
 }
+
+@media (max-width: 767px){
+  #map-container{
+    height: 60%;
+  }
+}
+
+
 
 #map-display{
   border: 3px solid black;
