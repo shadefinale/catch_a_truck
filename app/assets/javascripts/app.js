@@ -22,8 +22,7 @@ var app = angular.module("app", ["ui.router", 'uiGmapgoogle-maps', 'restangular'
     $stateProvider
       .state('base', {
         url: "/",
-        template: '<base></base>'//,
-        // controller: 'QueryCtrl'
+        template: '<base></base>'
       })
       .state('map', {
         url: "/map/:query",
