@@ -12,11 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require lodash
 //= require twitter/bootstrap
+//= require lodash
 //= require angular
-//= require angular-google-maps
 //= require angular-simple-logger
+//= require angular-google-maps
+//= require restangular
 //= require ui-router
 //= require turbolinks
 //= require_tree .

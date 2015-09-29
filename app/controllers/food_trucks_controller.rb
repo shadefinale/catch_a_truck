@@ -6,7 +6,7 @@ class FoodTrucksController < ApplicationController
 
     @foodtrucks = FoodTruck.all
     respond_to do |format|
-      format.json {render @foodtrucks}
+      format.json {render json: @foodtrucks}
       # format.html
     end
   end

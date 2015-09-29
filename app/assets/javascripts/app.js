@@ -1,4 +1,19 @@
-var app = angular.module("app", ["ui.router"])
+var app = angular.module("app", ["ui.router", 'uiGmapgoogle-maps', 'restangular'])
+
+.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        //    key: 'your api key',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization'
+    });
+})
+
+.config(["RestangularProvider", function(RestangularProvider){
+  RestangularProvider.setBaseUrl("/api/v1")
+  RestangularProvider.setRequestSuffix(".json")
+
+}])
+
 
 .config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider){
@@ -10,8 +25,9 @@ var app = angular.module("app", ["ui.router"])
         template: '<base></base>'
       })
       .state('map', {
-        url: "/map",
-        template: '<map></map>'
+        url: "/map/:query",
+        templateUrl: 'templates/map.html',
+        controller: 'MapCtrl',
       })
   }
 ])
