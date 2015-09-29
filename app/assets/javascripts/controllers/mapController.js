@@ -9,7 +9,7 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       console.log($scope.map.markers);
       $scope.mapCenter.latitude = success.center.latitude;
       $scope.mapCenter.longitude = success.center.longitude;
-      $scope.map.zoom = 14;
+      $scope.map.zoom = query ? 15 : 13;
       updateStatusText();
     }, function(error){
       console.log(error);
@@ -25,6 +25,13 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       $scope.status.text = cartNum + " Carts Nearby";
     }
   };
+
+  var watchMapCenter = function(){
+    $scope.$watch($scope.map.dragging, function(newCtr, oldCtr){
+      console.log('center changed:', oldCtr, newCtr)
+    } );
+  };
+
 
   //initial page load
   getCarts($stateParams.query);
@@ -51,7 +58,7 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       closeClick: function() {
           this.show = false;
       },
-      options: {icon: 'data/truckicon.png'} // define when map is ready
+      options: {}
     }
   };
 
