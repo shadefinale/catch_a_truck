@@ -9,6 +9,7 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       console.log($scope.map.markers);
       $scope.mapCenter.latitude = success.center.latitude;
       $scope.mapCenter.longitude = success.center.longitude;
+      $scope.map.zoom = 14;
       updateStatusText();
     }, function(error){
       console.log(error);
@@ -35,7 +36,7 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
 
   $scope.map = {
     center: $scope.mapCenter,
-    zoom: 15,
+    zoom: 13,
     markers: [$scope.mapCenter],
     markersEvents: {
       click: function(marker, eventName, model, arguments) {

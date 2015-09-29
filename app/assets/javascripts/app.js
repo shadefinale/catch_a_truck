@@ -28,9 +28,6 @@ var app = angular.module("app", ["ui.router", 'uiGmapgoogle-maps', 'restangular'
         url: "/map/:query",
         templateUrl: 'templates/map.html',
         controller: 'MapCtrl',
-        // view: {
-        //   "search": 'templates/search_field.html'
-        // }
       })
   }
 ]);
