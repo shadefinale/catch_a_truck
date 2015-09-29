@@ -9,8 +9,8 @@ var app = angular.module("app", ["ui.router", 'uiGmapgoogle-maps', 'restangular'
 })
 
 .config(["RestangularProvider", function(RestangularProvider){
-  RestangularProvider.setBaseUrl("/api/v1")
-  RestangularProvider.setRequestSuffix(".json")
+  RestangularProvider.setBaseUrl("/api/v1");
+  RestangularProvider.setRequestSuffix(".json");
 
 }])
 
@@ -22,12 +22,20 @@ var app = angular.module("app", ["ui.router", 'uiGmapgoogle-maps', 'restangular'
     $stateProvider
       .state('base', {
         url: "/",
-        template: '<base></base>'
+        template: '<base></base>'//,
+        // controller: 'QueryCtrl'
       })
       .state('map', {
         url: "/map/:query",
         templateUrl: 'templates/map.html',
         controller: 'MapCtrl',
+        resolve: {
+          mapData: ['Restangular', '$stateParams',
+            function(Restangular, $stateParams){
+              return Restangular.one("food_trucks").get(
+                            {'address': $stateParams.query});
+          }]
+        }
       })
   }
 ])
