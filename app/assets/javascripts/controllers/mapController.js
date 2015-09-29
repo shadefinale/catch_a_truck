@@ -1,5 +1,6 @@
 app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", 'mapData', function($scope, $stateParams, Restangular, mapData){
 
+  debugger
   if(mapData.error) $scope.status.text = "Oops! There seems to be an error. Please try again.";
   $scope.map.markers = JSON.parse(mapData.markers);
   $scope.mapCenter = mapData.center;
