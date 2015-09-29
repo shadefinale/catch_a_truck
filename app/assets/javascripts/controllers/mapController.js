@@ -1,16 +1,17 @@
 app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($scope, $stateParams, Restangular){
 
-  var errorMsg = "No Nearby Carts Open Today";
+  var errorMsg = "No Nearby Food Trucks Open Today";
 
   //requesting info from backend
   var getCarts = function(query){
     Restangular.one("food_trucks").get({'address': query}).then(function(success){
       $scope.map.markers = JSON.parse(success.markers);
-      console.log($scope.map.markers);
       $scope.mapCenter.latitude = success.center.latitude;
       $scope.mapCenter.longitude = success.center.longitude;
       $scope.map.zoom = query ? 15 : 13;
       updateStatusText();
+
+      console.log($scope.map.markers);
     }, function(error){
       console.log(error);
       $scope.status.text = "Oops! There was an error. Try Again?";
@@ -22,14 +23,8 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       $scope.status.text = errorMsg;
     } else {
       var cartNum = $scope.map.markers.length;
-      $scope.status.text = cartNum + " Carts Nearby";
+      $scope.status.text = "Found Some Food Nearby";
     }
-  };
-
-  var watchMapCenter = function(){
-    $scope.$watch($scope.map.dragging, function(newCtr, oldCtr){
-      console.log('center changed:', oldCtr, newCtr)
-    } );
   };
 
   //initial page load
@@ -59,8 +54,8 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       },
       options: {}
     }
-
   };
+
   $scope.newQuery = function(){
     $scope.status.text = "Loading...";
     getCarts($scope.query);
