@@ -9,8 +9,8 @@ var app = angular.module("app", ["ui.router", 'uiGmapgoogle-maps', 'restangular'
 })
 
 .config(["RestangularProvider", function(RestangularProvider){
-  RestangularProvider.setBaseUrl("/api/v1")
-  RestangularProvider.setRequestSuffix(".json")
+  RestangularProvider.setBaseUrl("/api/v1");
+  RestangularProvider.setRequestSuffix(".json");
 
 }])
 
@@ -27,7 +27,7 @@ var app = angular.module("app", ["ui.router", 'uiGmapgoogle-maps', 'restangular'
       .state('map', {
         url: "/map/:query",
         templateUrl: 'templates/map.html',
-        controller: 'MapCtrl',
+        controller: 'MapCtrl'
       })
   }
 ])
