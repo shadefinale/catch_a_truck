@@ -1,9 +1,9 @@
 class CreateFoodTrucks < ActiveRecord::Migration
   def change
     create_table :food_trucks do |t|
-      t.string      :name,        null: false
-      t.string      :address
-      t.string      :food_items,      null: false
+      t.string      :name,       null: false
+      t.string      :address,    null: false
+      t.string      :food_items, null: false
       t.float       :latitude,   null: false
       t.float       :longitude,  null: false
 
