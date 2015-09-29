@@ -1,11 +1,12 @@
 app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($scope, $stateParams, Restangular){
 
-  var mapCenter;
+  //required hardcoding for map unless Restangular in resolve
+  $scope.mapCenter = { latitude: 37.7833, longitude: -122.4167};
 
   $scope.map = {
-    center: { latitude: 37.7833, longitude: -122.4167},
+    center: $scope.mapCenter,
     zoom: 13,
-    markers: [{ latitude: 37.7833, longitude: -122.4167}],
+    markers: [$scope.mapCenter],
     markersEvents: {
       click: function(marker, eventName, model, arguments) {
         console.log(marker, eventName, model, arguments);
@@ -25,11 +26,11 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
 
   $scope.status = {text : "Loading..."};
 
-  Restangular.all("food_trucks").get().then(function(success){
-    debugger
+  Restangular.one("food_trucks").get().then(function(success){
     console.log(success);
-    $scope.map.markers = success.markers;
-    mapCenter = success.center;
+    $scope.map.markers = JSON.parse(success.markers);
+    $scope.mapCenter.latitude = success.center.latitude;
+    $scope.mapCenter.longitude = success.center.longitude;
     $scope.status.text = "";
   }, function(error){
     console.log(error);
