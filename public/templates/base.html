@@ -1,15 +1,17 @@
-<div class="row">
-  <div class="col-xs-12 text-center">
-    <h1> Catch a Meal! </h1>
+<div class="base-page">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <h1> Catch a Meal! </h1>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-8 col-xs-offset-2 text-center">
-    <div class="input-group">
-      <input placeholder="Input a location!" type="text" class="form-control" ng-model="query"/>
-      <span class="input-group-btn">
-        <button ui-sref="map({'query': query})" class="btn btn-primary">Go!</button>
-      </span>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2 text-center">
+      <div class="input-group">
+        <input placeholder="Input a location!" type="text" class="form-control" ng-model="query"/>
+        <span class="input-group-btn">
+          <button ui-sref="map({'query': query})" class="btn btn-primary">Go!</button>
+        </span>
+      </div>
     </div>
   </div>
 </div>

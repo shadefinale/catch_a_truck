@@ -5,6 +5,7 @@ html, body{
   height: 100%;
   padding: 0;
   margin: 0;
+  overflow-y: hidden
 }
 
 .my-container-fluid{
@@ -22,6 +23,10 @@ html, body{
 
   display: flex;
   align-items: center;
+}
+
+.base-page {
+  margin-top:20%;
 }
 
 .angular-google-map-container { height: 100%; }
@@ -52,8 +57,12 @@ body {
   padding-bottom: 10px;
 }
 
+.spacer {
+  height: 5%;
+}
+
 #map-container{
-  height: 75%;
+  height: 70%;
 }
 
 #map-display{
