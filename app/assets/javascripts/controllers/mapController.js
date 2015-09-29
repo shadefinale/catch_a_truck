@@ -3,7 +3,7 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
   var mapCenter;
 
   $scope.map = {
-    center: { latitude: 37.7833, longitude: -122.4167}, //mapCenter
+    center: { latitude: 37.7833, longitude: -122.4167},
     zoom: 13,
     markers: [{ latitude: 37.7833, longitude: -122.4167}],
     markersEvents: {
@@ -25,11 +25,15 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
 
   $scope.status = {text : "Loading..."};
 
-  Restangular.all("food_trucks").getList().then(function(success){
+  Restangular.all("food_trucks").get().then(function(success){
+    debugger
     console.log(success);
     $scope.map.markers = success.markers;
     mapCenter = success.center;
     $scope.status.text = "";
+  }, function(error){
+    console.log(error);
+    $scope.status.text = "Oops! There was an error. Try Again?";
   });
 
 }]);
