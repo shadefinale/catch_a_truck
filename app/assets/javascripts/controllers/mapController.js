@@ -1,11 +1,11 @@
 app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($scope, $stateParams, Restangular){
 
   Restangular.one("food_trucks").get({'address': $stateParams.query}).then(function(success){
-    console.log(success);
+    console.log(JSON.parse(success.markers));
     $scope.map.markers = JSON.parse(success.markers);
     // debugger;
-    $scope.mapCenter.latitude = success.center.latitude;
-    $scope.mapCenter.longitude = success.center.longitude;
+    $scope.mapCenter.latitude = Number(success.center.latitude);
+    $scope.mapCenter.longitude = Number(success.center.longitude);
     $scope.status.text = "";
   }, function(error){
     console.log(error);
@@ -20,7 +20,7 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
   $scope.map = {
     center: { latitude: 37.7833, longitude: -122.4167},
     zoom: 13,
-    markers: [{ latitude: 37.7833, longitude: -122.4167}],
+    markers: [{ id: -1, latitude: 37.7833, longitude: -122.4167}],
     markersEvents: {
       click: function(marker, eventName, model, arguments) {
         console.log(marker, eventName, model, arguments);
