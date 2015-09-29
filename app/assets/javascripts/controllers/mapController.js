@@ -1,6 +1,9 @@
 app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($scope, $stateParams, Restangular){
+
+  var mapCenter;
+
   $scope.map = {
-    center: { latitude: 37.7833, longitude: -122.4167},
+    center: { latitude: 37.7833, longitude: -122.4167}, //mapCenter
     zoom: 13,
     markers: [{ latitude: 37.7833, longitude: -122.4167}],
     markersEvents: {
@@ -18,14 +21,15 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
       },
       options: {} // define when map is ready
     }
-  }
+  };
 
   $scope.status = {text : "Loading..."};
 
   Restangular.all("food_trucks").getList().then(function(success){
     console.log(success);
-    $scope.map.markers = success
+    $scope.map.markers = success.markers;
+    mapCenter = success.center;
     $scope.status.text = "";
-  })
+  });
 
-}])
+}]);
