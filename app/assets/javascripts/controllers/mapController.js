@@ -3,9 +3,8 @@ app.controller("MapCtrl", ["$scope", "$stateParams", "Restangular", function($sc
   var errorMsg = "No Nearby Carts Found";
 
   Restangular.one("food_trucks").get({'address': $stateParams.query}).then(function(success){
-    console.log(success);
-
     $scope.map.markers = JSON.parse(success.markers);
+    console.log($scope.map.markers);
     $scope.mapCenter.latitude = success.center.latitude;
     $scope.mapCenter.longitude = success.center.longitude;
     $scope.status.text = $scope.map.markers.length == 0 ? errorMsg : "";
