@@ -1,20 +1,10 @@
-Geolocation - maybe
+An implementation of one of the Uber coding challenges (finding nearby food trucks)
 
-datasf information - has api
-Map
-Food truck type
+Live, here: [https://catch-a-meal.herokuapp.com/](https://catch-a-meal.herokuapp.com/)
 
-Google maps api
-User flow
-Inputs location
-Map shows carts near location
-Only shows approved carts
-clicking truck/cart displays more information.
+How to use - Input an address, and a map will show up focused at the location. Nearby trucks or food carts in the San Francisco area will appear. Clicking or tapping on these markers will provide more information about the given selection.
 
-Extra
-
-Can filter carts by criteria
-schedule: filter by carts
-<!-- geolocation: carts -->
-
-Back end - query a location, get nearby trucks if nearby is possible
+Technical Highlights:
+Uses [SODA (datasf open data)](https://data.sfgov.org/developers) to provide information on carts.
+Rails back-end performs queries to this api and pushes refined results to AngularJS front end.
+The application should scale decently on mobile devices.
